@@ -5,6 +5,9 @@ from django.views.decorators.http import require_POST
 
 from clinicians.forms import PatientSheetForm
 from clinicians.logic import generate_discharge_note_from_medical_clerking
+from embedding.chroma import ChromaDB
+
+db = ChromaDB()
 
 
 def index(request):
@@ -22,9 +25,6 @@ def index(request):
 @require_POST
 def generate_discharge_note(request):
     medical_clerking = request.POST.get('medical_clerking', '')
-
-    # Example logic to generate a discharge note
-    # Replace this with your actual logic (e.g., AI, rules-based, etc.)
-    discharge_note = generate_discharge_note_from_medical_clerking(medical_clerking)
+    discharge_note = generate_discharge_note_from_medical_clerking(medical_clerking, db)
 
     return JsonResponse({'discharge_note': discharge_note})
