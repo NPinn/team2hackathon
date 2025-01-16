@@ -11,6 +11,7 @@
 import pandas as pd
 from pathlib import Path
 import torch
+from transformers import AutoTokenizer, AutoModel
 
 ## data loader (will load the input data)
 def dataloader(path):
@@ -40,4 +41,13 @@ def dataloader(path):
 
 
 ## data processor (will clean the loaded data)
+
+data = {
+    'x': ["Doctor, I have a shortness of breath and chest pain and also have temperatures", "My leg hurts", "I am feeling dizzy"],
+    'y': ["pneumonia", "dvt", "vertigo"]
+}
+df = pd.DataFrame(data)
+
+tokenizer = AutoTokenizer.from_pretrained("Charangan/MedBERT")
+model = AutoModel.from_pretrained("Charangan/MedBERT")
 
