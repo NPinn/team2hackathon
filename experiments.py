@@ -51,3 +51,17 @@ df = pd.DataFrame(data)
 tokenizer = AutoTokenizer.from_pretrained("Charangan/MedBERT")
 model = AutoModel.from_pretrained("Charangan/MedBERT")
 
+def text_to_embedding(text):
+    # Tokenize the text
+    inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)
+    # Get the embeddings
+    with torch.no_grad():
+        outputs = model(**inputs)
+    # The embeddings are in the last hidden state
+    embeddings = outputs.last_hidden_state
+    # You can use the mean of the embeddings as the representation
+    mean_embeddings = embeddings.mean(dim=1)
+    return mean_embeddings
+
+# Apply the function to the 'x' column
+df['x_embeddings'] = df['x'].apply(lambda x: text_to_embedding(x).squeeze().numpy())
