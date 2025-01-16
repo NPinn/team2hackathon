@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Patient Sheet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <style>
+        .star-rating {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+        .star-rating span {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .star-rating span.active {
+            color: gold;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h1 class="card-title">Create New Patient Sheet</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'create_patient_sheet' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Patient Information -->
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="patient_id" class="form-label">Patient ID:</label>
+                        <input type="text" id="patient_id" name="patient_id" class="form-control" required>
+                    </div>
+
+                    <!-- Medical Clearance Free Text Form -->
+                    <div class="mb-3">
+                        <label for="medical_clearance" class="form-label">Medical Clearance:</label>
+                        <textarea id="medical_clearance" name="medical_clearance" class="form-control" rows="5" required></textarea>
+                    </div>
+
+                    <!-- HTMX-powered Button to Generate Discharge Note -->
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-success" 
+                                hx-post="{% url 'generate_discharge_note' %}" 
+                                hx-target="#discharge-note-container" 
+                                hx-include="[name='medical_clearance']">
+                            Generate Discharge Note
+                        </button>
+                    </div>
+
+                    <!-- Discharge Note (Dynamically Populated) -->
+                    <div id="discharge-note-container" class="mb-3">
+                        <label for="discharge_note" class="form-label">Discharge Note:</label>
+                        <textarea id="discharge_note" name="discharge_note" class="form-control" rows="5" readonly></textarea>
+                    </div>
+
+                    <!-- Star Rating Feedback -->
+                    <div class="mb-3">
+                        <label class="form-label">Discharge Note Feedback:</label>
+                        <div class="star-rating">
+                            <span data-rating="1">&#9733;</span>
+                            <span data-rating="2">&#9733;</span>
+                            <span data-rating="3">&#9733;</span>
+                            <span data-rating="4">&#9733;</span>
+                            <span data-rating="5">&#9733;</span>
+                        </div>
+                        <input type="hidden" id="feedback_rating" name="feedback_rating" value="0">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Create Patient Sheet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional, for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- HTMX Script for Star Rating -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star-rating span');
+            const feedbackInput = document.getElementById('feedback_rating');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-rating');
+                    feedbackInput.value = rating;
+
+                    // Highlight selected stars
+                    stars.forEach(s => s.classList.remove('active'));
+                    for (let i = 0; i < rating; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Script to Update Discharge Note -->
+    <script>
+        document.body.addEventListener('htmx:afterSwap', function(evt) {
+            if (evt.detail.target.id === 'discharge-note-container') {
+                const response = JSON.parse(evt.detail.target.innerHTML);
+                document.getElementById('discharge_note').value = response.discharge_note;
+            }
+        });
+    </script>
+</body>
+</html>

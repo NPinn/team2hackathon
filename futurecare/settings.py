@@ -55,7 +55,7 @@ ROOT_URLCONF = "futurecare.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["clinicians/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
