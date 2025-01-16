@@ -81,7 +81,7 @@ django_settings_module = "futurecare.settings"
 
 [tool.ruff]
 exclude = ["*/migrations/*", "*/settings.py", "*/wsgi.py", "*/asgi.py"]
-line-length = 79
+line-length = 120
 
 [tool.ruff.lint]
 preview = true
