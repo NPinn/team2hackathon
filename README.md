@@ -7,3 +7,7 @@
 - Lisa: project manager, One London
 - Teddy: data scientist, clinician
 - Rafael: AI Engineer, astrophysicist now working on FLIP
+
+## MedBert model
+
+https://huggingface.co/Charangan/MedBERT
