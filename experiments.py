@@ -22,6 +22,36 @@ def add_docs_to_db(doctxt, id):
     return
 
 
+from chromadb.utils import embedding_functions
+
+class Embedder:
+    def __init__(self):
+        self.default_ef = embedding_functions.DefaultEmbeddingFunction()
+
+    def create_embeddings(self, userinput):
+        """create embeddings
+
+        Args:
+            userinput (string): text data
+
+        Raises:
+            FileNotFoundError: _description_
+            FileNotFoundError: _description_
+
+        Returns:
+            _type_: _description_
+        """
+        input = [userinput]
+        val = self.default_ef(input)
+        print(val)
+        return val
+
+# Example usage:
+embedder = Embedder()
+eg = "Doctor I have a pneumonia"
+eg2 = "oh my leg hurts"
+v2 = embedder.create_embeddings(userinput = eg)
+v3 = embedder.create_embeddings(userinput = eg2)
 # model architecture
 # data loader (will load the input data)
 # data processor (will clean the loaded data)
