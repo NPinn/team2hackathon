@@ -9,7 +9,8 @@ def summarize_discharge_notes(discharge_notes: list) -> str:
 
 
 def generate_discharge_note_from_medical_clerking(medical_clearking: str, db: ChromaDB) -> str:
-    medical_clearking_embedding = db.medical_clerking.get_embedding(medical_clearking)
-    discharge_notes = db.discharge_note.get_closest(medical_clearking_embedding, n=5)
+    discharge_notes = db.discharge_note.query(
+        query_texts=medical_clearking, n_results=5
+    )
     summary = summarize_discharge_notes(discharge_notes)
     return summary

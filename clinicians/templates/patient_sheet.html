@@ -61,12 +61,12 @@
                                 hx-post="{% url 'generate_discharge_note' %}" 
                                 hx-target="#discharge-note-container" 
                                 hx-include="[name='medical_clerking']">
-                            Generate Discharge Note
+                            Differential Diagnosis
                         </button>
                     </div>
 
                     <!-- Discharge Note (Dynamically Populated) -->
-                    <div id="discharge-note-container" class="mb-3">
+                    <div id="discharge-note-container">
                         <label for="discharge_note" class="form-label">Discharge Note:</label>
                         <textarea id="discharge_note" name="discharge_note" class="form-control" rows="5" readonly></textarea>
                     </div>
