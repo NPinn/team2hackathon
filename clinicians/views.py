@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -25,6 +25,10 @@ def index(request):
 @require_POST
 def generate_discharge_note(request):
     medical_clerking = request.POST.get('medical_clerking', '')
+
     discharge_note = generate_discharge_note_from_medical_clerking(medical_clerking, db)
 
-    return JsonResponse({'discharge_note': discharge_note})
+    return HttpResponse(
+        f'<label for="discharge_note" class="form-label">Discharge Note:</label>'
+        f'<textarea id="discharge_note" name="discharge_note" class="form-control" rows="5">{discharge_note}</textarea>'
+    )
