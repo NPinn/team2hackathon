@@ -1,0 +1,10 @@
+services:
+  futurecare:
+    image: futurecare
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ../:/app/
+    ports:
+      - 8000:8000
