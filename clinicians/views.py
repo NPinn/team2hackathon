@@ -29,6 +29,6 @@ def generate_discharge_note(request):
     discharge_note = generate_discharge_note_from_medical_clerking(medical_clerking, db)
 
     return HttpResponse(
-        f'<label for="discharge_note" class="form-label">Discharge Note:</label>'
+        f'<label for="discharge_note" class="form-label">Impressions:</label>'
         f'<textarea id="discharge_note" name="discharge_note" class="form-control" rows="5">{discharge_note}</textarea>'
     )

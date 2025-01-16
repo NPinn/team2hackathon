@@ -55,7 +55,7 @@
                         <textarea id="medical_clerking" name="medical_clerking" class="form-control" rows="5" required></textarea>
                     </div>
 
-                    <!-- HTMX-powered Button to Generate Discharge Note -->
+                    <!-- HTMX-powered Button to Generate Impressions -->
                     <div class="mb-3">
                         <button type="button" class="btn btn-success" 
                                 hx-post="{% url 'generate_discharge_note' %}" 
@@ -65,15 +65,15 @@
                         </button>
                     </div>
 
-                    <!-- Discharge Note (Dynamically Populated) -->
+                    <!-- Impressions (Dynamically Populated) -->
                     <div id="discharge-note-container">
-                        <label for="discharge_note" class="form-label">Discharge Note:</label>
+                        <label for="discharge_note" class="form-label">Impressions:</label>
                         <textarea id="discharge_note" name="discharge_note" class="form-control" rows="5" readonly></textarea>
                     </div>
 
                     <!-- Star Rating Feedback -->
                     <div class="mb-3">
-                        <label class="form-label">Discharge Note Feedback:</label>
+                        <label class="form-label">Impressions Feedback:</label>
                         <div class="star-rating">
                             <span data-rating="1">&#9733;</span>
                             <span data-rating="2">&#9733;</span>
@@ -117,7 +117,7 @@
         });
     </script>
 
-    <!-- Script to Update Discharge Note -->
+    <!-- Script to Update Impressions -->
     <script>
         document.body.addEventListener('htmx:afterSwap', function(evt) {
             if (evt.detail.target.id === 'discharge-note-container') {

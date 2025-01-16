@@ -28,15 +28,22 @@ Reduced AE L mid lower zone, scattered wheeze.
 Nil peripheral oedema.
 """
 
-import pandas as pd
-
 d1 = [
-    {'id': 1, 'x': data1, 'y': "Pleuraleffusion"},
-    {'id': 2, 'x': data1, 'y': "Pneumonia"},
-    {'id': 3, 'x': data1, 'y': "Pnuemothorax"}
+    {'id': '1', 'x': data1, 'y': "Pleuraleffusion"},
+    {'id': '2', 'x': data1, 'y': "Pneumonia"},
+    {'id': '3', 'x': data1, 'y': "Pnuemothorax"}
 ]
 
-d2 = pd.DataFrame(d1)
+from embedding.chroma import ChromaDB
 
-csvfile = "data/tempdata.csv"
-d2.to_csv(csvfile)
+db = ChromaDB()
+
+for i in d1:
+    db.medical_clerking.add(
+        ids=[i['id']],
+        documents=[i['x']],
+    )
+    db.discharge_note.add(
+        ids=[i['id']],
+        documents=[i['y']],
+    )
