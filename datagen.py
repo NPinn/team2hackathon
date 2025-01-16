@@ -1,3 +1,5 @@
+from embedding.chroma import ChromaDB
+
 data1 = """Source of History
 Patient
 Source of referral
@@ -33,8 +35,6 @@ d1 = [
     {'id': '2', 'x': data1, 'y': "Pneumonia"},
     {'id': '3', 'x': data1, 'y': "Pnuemothorax"}
 ]
-
-from embedding.chroma import ChromaDB
 
 db = ChromaDB()
 
