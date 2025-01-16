@@ -1,3 +1,27 @@
+from embedding.chroma import ChromaDB
+
+def add_docs_to_db(doctxt,id):
+    """_summary_
+
+    Args:
+        doctxt (_type_): _description_
+        id (_type_): _description_
+
+    Raises:
+        FileNotFoundError: _description_
+        FileNotFoundError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    db = ChromaDB()
+    dev = db.medical_clerking
+    dev.add(documents=doctxt, ids= id)
+    print("documents added to database successfully")
+    return
+
+
+
 
 # model architecture
 ## data loader (will load the input data)
