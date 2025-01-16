@@ -81,7 +81,7 @@ django_settings_module = "futurecare.settings"
 
 [tool.ruff]
 exclude = ["*/migrations/*", "*/settings.py", "*/wsgi.py", "*/asgi.py"]
-line-length = 79
+line-length = 120
 
 [tool.ruff.lint]
 preview = true
@@ -93,7 +93,4 @@ format = "ruff check . --fix && ruff format ."
 pre_test = "task format"
 test = "coverage run -m pytest"
 post_test = "coverage report; coverage html"
-build = "docker compose -f docker/docker-compose.yml build"
-up = "docker compose -f docker/docker-compose.yml run futurecare"
-run_on_docker = "docker compose -f docker/docker-compose.yml exec futurecare"
-down = "docker compose -f docker/docker-compose.yml down --remove-orphans -v"
+run= "python manage.py runserver"

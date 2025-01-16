@@ -49,10 +49,10 @@
                         <input type="text" id="patient_id" name="patient_id" class="form-control" required>
                     </div>
 
-                    <!-- Medical Clearance Free Text Form -->
+                    <!-- Medical Clerking Free Text Form -->
                     <div class="mb-3">
-                        <label for="medical_clearance" class="form-label">Medical Clearance:</label>
-                        <textarea id="medical_clearance" name="medical_clearance" class="form-control" rows="5" required></textarea>
+                        <label for="medical_clerking" class="form-label">Medical Clerking:</label>
+                        <textarea id="medical_clerking" name="medical_clerking" class="form-control" rows="5" required></textarea>
                     </div>
 
                     <!-- HTMX-powered Button to Generate Discharge Note -->
@@ -60,7 +60,7 @@
                         <button type="button" class="btn btn-success" 
                                 hx-post="{% url 'generate_discharge_note' %}" 
                                 hx-target="#discharge-note-container" 
-                                hx-include="[name='medical_clearance']">
+                                hx-include="[name='medical_clerking']">
                             Generate Discharge Note
                         </button>
                     </div>
